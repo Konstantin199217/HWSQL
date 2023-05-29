@@ -1,1 +1,60 @@
-CREATE TABLE
+CREATE DATABASE seminar2;
+use seminar2;
+CREATE TABLE sales
+(
+id INT PRIMARY KEY AUTO_INCREMENT not null,
+order_date DATE not null,
+bucket INT not null
+);
+
+INSERT INTO sales (order_date, bucket) VALUES 
+('2021-01-01', 101),
+('2021-01-02', 102),
+('2021-01-03', 98),
+('2021-01-04', 103),
+('2021-01-05', 303);
+
+select * from sales;
+
+ALTER TABLE sales ADD status_sales VARCHAR(50);
+
+UPDATE sales SET status_sales
+    CASE WHEN bucket > 99 THEN "Средний заказ"
+         WHEN bucket > 300 THEN "Большой заказ"
+         ELSE "Маленький заказ"
+    END:
+
+CREATE TABLE order_2
+(
+    orderId INT PRIMARY KEY AUTO_INCREMENT,
+    employeeid VARCHAR(50) NOT NULL,
+    amount DECIMAL(8,2) DEFAULT(0.00),
+    orderStatus VARCHAR(50) NOT NULL
+);
+
+INSERT INTO order_2 (employeeid, amount, orderStatus) VALUES
+('e03', '15.00', 'OPEN'),
+('e01', '25.50', 'OPEN'),
+('e05', '100.70', 'CLOSED'),
+('e02', '22.18', 'OPEN'),
+('e04', '9.50', 'CANCELLED'),
+('e04', '99.99', 'OPEN');
+
+SELECT * FROM order_2;
+
+SELECT orderId, orderStatus,
+    CASE WHEN orderStatus = 'OPEN' THEN 'Order is in open state'
+         WHEN orderStatus = 'CLOSED' THEN 'Order is closed'
+         WHEN orderStatus = 'CANCELLED' THEN 'Order is cacelled'
+         ELSE 'Status unknown'
+    END AS order_summary
+FROM order_2;
+
+
+/*
+Чем NULL отличается от 0?
+
+0 - это какое то значение
+
+NULL - пустая строка(отсутствие каких либо значений совсем)
+*/
