@@ -89,3 +89,51 @@ SELECT min(amt) FROM orders;
 -- у которых рейтинг больше 100 и они находятся не в Риме.
 SELECT cname FROM customers
 WHERE rating > 100 AND city != 'Rome';
+
+
+CREATE TABLE worker
+(
+id int primary key auto_increment not null,
+wname varchar(15) not null,
+wsurname varchar(15) not null,
+speciality varchar(15) not null,
+seniority int not null,
+salary int not null,
+age int not null
+);
+
+INSERT INTO worker (wname, wsurname, speciality, seniority, salary, age) VALUES
+('Вася','Васькин','начальник', 40, 100000, 60),
+('Петя','Петькин','начальник', 8, 70000, 30),
+('Катя','Каткина','инженер', 2, 70000, 25),
+('Саша','Сашкин','инженер', 12, 50000, 35),
+('Иван','Иванов','рабочий', 40, 30000, 59),
+('Петр','Петров','рабочий', 20, 25000, 40),
+('Сидор','Сидоров','рабочий', 10, 20000, 35),
+('Антон','Фнтонов','рабочий', 8, 19000, 28),
+('Юра','Юркин','рабочий', 5, 15000, 25),
+('Максим','Воронин','рабочий', 2, 11000, 22),
+('Юра','Галкин','рабочий', 3, 12000, 24),
+('Люся','Люськина','уборщица', 10, 10000, 49);
+
+select * from worker;
+
+-- Отсортируйте поле “зарплата” в порядке убывания и возрастания
+SELECT salary FROM worker
+ORDER BY salary;
+
+SELECT salary FROM worker
+ORDER BY salary DESC;
+
+-- ** Отсортируйте по возрастанию поле “Зарплата” и выведите 5 строк с 
+-- наибольшей заработной платой (возможен подзапрос)
+SELECT * FROM worker
+ORDER BY salary
+limit 5;
+
+
+-- Выполните группировку всех сотрудников по специальности , 
+-- суммарная зарплата которых превышает 100000
+SELECT speciality, COUNT(*) as summ, sum(salary) as summ1 FROM worker
+WHERE salary > 10000
+GROUP BY speciality;
